@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cartoon | Animation World</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #100d1d;
+  color: white;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+a {
+  color: #ffabd4;
+}
+
+/* HALAMAN API KEY */
+#loginPage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at top left, #49305f, transparent 45%),
+    linear-gradient(135deg, #100d1d, #21152e);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  border: 1px solid #59436d;
+  border-radius: 24px;
+  background: #211a32;
+  text-align: center;
+  box-shadow: 0 15px 50px #0005;
+}
+
+.logo {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.login-card h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.pink {
+  color: #ff8fc7;
+}
+
+.login-card p {
+  color: #c8c0d7;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.login-card input,
+.search-box {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #59436d;
+  border-radius: 12px;
+  outline: none;
+  background: #151020;
+  color: white;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff76b7, #9e69ff);
+}
+
+#loginMessage {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+/* HEADER */
+header {
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  background: #191327;
+  border-bottom: 1px solid #332743;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.brand span {
+  color: #ff8fc7;
+}
+
+.header-tag {
+  color: #c8c0d7;
+  font-size: 12px;
+}
+
+/* HERO */
+.hero {
+  margin: 25px 5%;
+  padding: 35px 25px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at right, #b45b9b77, transparent 40%),
+    linear-gradient(120deg, #35244e, #1d1933);
+  border: 1px solid #4c365f;
+}
+
+.hero-label {
+  color: #ffabd4;
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #d0c7dd;
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+/* PENCARIAN DAN KATEGORI */
+.toolbar {
+  margin: 25px 5%;
+}
+
+.search-box {
+  margin-bottom: 16px;
+}
+
+.categories {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 9px 15px;
+  border-radius: 30px;
+  border: 1px solid #51405f;
+  background: #211a32;
+  color: #e9e0f1;
+}
+
+.category-btn.active,
+.category-btn:hover {
+  color: white;
+  border-color: #ff8fc7;
+  background: #9b4f92;
+}
+
+/* DAFTAR FILM */
+.cartoon-section {
+  padding: 10px 5%;
+}
+
+.cartoon-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.small-title {
+  color: #ff9dcf;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.cartoon-heading h2 {
+  font-size: clamp(25px, 4vw, 36px);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #bdb4ce;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.cartoon-icon {
+  font-size: 35px;
+  padding: 15px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #49316c, #a64d91);
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 18px;
+}
+
+.movie-card {
+  position: relative;
+  background: #211a32;
+  border: 1px solid #382b4b;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  border-color: #ff8fc7;
+  box-shadow: 0 10px 30px #0004;
+}
+
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  display: block;
+  object-fit: cover;
+  background: #292136;
+}
+
+.movie-info {
+  padding: 12px;
+}
+
+.movie-info h3 {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 7px;
+}
+
+.movie-info p {
+  color: #bdb4ce;
+  font-size: 12px;
+}
+
+.rating {
+  color: #ffd78b !important;
+  margin-top: 7px;
+}
+
+.card-love {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  z-index: 1;
+  width: 37px;
+  height: 37px;
+  border: none;
+  border-radius: 50%;
+  background: #160f25eF;
+  color: #ff9acb;
+  font-size: 21px;
+  box-shadow: 0 3px 10px #0005;
+}
+
+.card-love.loved {
+  background: #ff8fc7;
+  color: #291329;
+}
+
+/* STATUS */
+.status {
+  padding: 25px 5%;
+  text-align: center;
+  color: #d1c4e2;
+}
+
+/* FAVORIT */
+.favorites-section {
+  padding: 25px 5%;
+}
+
+.favorites-section h2 {
+  margin-bottom: 8px;
+}
+
+.favorites-section p {
+  color: #bdb4ce;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* MODAL DETAIL */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  background: #080611e8;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 22px;
+  border: 1px solid #514064;
+  border-radius: 22px;
+  background: #211a32;
+}
+
+.close-btn {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #493653;
+  color: white;
+  font-size: 22px;
+}
+
+.detail-layout {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.detail-poster {
+  width: 180px;
+  height: fit-content;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-info h2 {
+  font-size: 25px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.detail-meta {
+  color: #ffabd4;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+.detail-overview {
+  color: #d1c9dd;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* LOVE DAN TRAILER */
+.love-btn,
+.trailer-btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 16px;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.love-btn {
+  border: 1px solid #ff8fc7;
+  background: #30213e;
+  color: #ff9acb;
+}
+
+.love-btn.loved {
+  background: #ff8fc7;
+  color: #28162c;
+}
+
+.trailer-btn {
+  border: none;
+  background: linear-gradient(135deg, #ff76b7, #9e69ff);
+  color: white;
+}
+
+.love-btn:hover,
+.trailer-btn:hover {
+  transform: scale(1.01);
+  filter: brightness(1.1);
+}
+
+.trailer-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 15px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #080611;
+}
+
+.trailer-player iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.trailer-message {
+  color: #ffabd4;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+footer {
+  padding: 25px 5%;
+  text-align: center;
+  border-top: 1px solid #332743;
+  color: #a99dbb;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+@media (max-width: 520px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .detail-layout {
+    flex-direction: column;
+  }
+
+  .detail-poster {
+    width: 130px;
+  }
+
+  .modal-content {
+    padding: 16px;
+  }
+
+  .hero {
+    padding: 27px 20px;
+  }
+
+  .cartoon-icon {
+    font-size: 28px;
+    padding: 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HALAMAN MASUK API KEY -->
+<section id="loginPage">
+  <div class="login-card">
+    <div class="logo">🎬</div>
+    <h1>My <span class="pink">Cartoon</span></h1>
+    <p>
+      Welcome to your animation world! ✨<br>
+      Masukkan TMDB API Key untuk menjelajahi film animasi.
+    </p>
+
+    <input
+      type="password"
+      id="apiKeyInput"
+      placeholder="Masukkan TMDB API Key v3"
+      autocomplete="off"
+    >
+
+    <button class="primary-btn" id="connectBtn" onclick="connectAPI()">
+      Explore Movies ✨
+    </button>
+
+    <div id="loginMessage"></div>
+
+    <p style="font-size:12px; margin-top:18px; margin-bottom:0">
+      Belum punya API Key?
+      <a href="https://www.themoviedb.org/settings/api"
+         target="_blank" rel="noopener noreferrer">
+        Dapatkan di TMDB
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- HALAMAN UTAMA -->
+<div id="mainPage" class="hidden">
+
+  <header>
+    <div class="brand">🎨 My <span>Cartoon</span></div>
+    <div class="header-tag">Your little animation universe ✨</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label">WELCOME TO MY CARTOON</div>
+    <h1>Stories that feel like <span class="pink">magic.</span></h1>
+    <p>
+      Temukan film animasi favoritmu, jelajahi dunia penuh imajinasi,
+      dan nikmati trailer film pilihanmu!
+    </p>
+  </section>
+
+  <main>
+    <div class="toolbar">
+      <input
+        type="search"
+        class="search-box"
+        id="searchInput"
+        placeholder="🔍 Cari judul film kartun..."
+        oninput="renderMovies()"
+      >
+
+      <div class="categories">
+        <button class="category-btn active"
+                onclick="setCategory('all', this)">Semua</button>
+        <button class="category-btn"
+                onclick="setCategory('12', this)">Adventure</button>
+        <button class="category-btn"
+                onclick="setCategory('14', this)">Fantasy</button>
+        <button class="category-btn"
+                onclick="setCategory('35', this)">Comedy</button>
+        <button class="category-btn"
+                onclick="setCategory('10751', this)">Family</button>
+      </div>
+    </div>
+
+    <section class="cartoon-section">
+      <div class="cartoon-heading">
+        <div>
+          <div class="small-title">YOUR ANIMATION WORLD ✨</div>
+          <h2>Explore Cartoons<span class="pink">.</span></h2>
+          <p class="subtitle">
+            Discover magical stories and unforgettable adventures.
+          </p>
+        </div>
+        <div class="cartoon-icon">🍿</div>
+      </div>
+
+      <div id="movieGrid" class="movie-grid"></div>
+    </section>
+
+    <div id="loadingStatus" class="status"></div>
+
+    <section class="favorites-section" id="favoritesSection">
+      <h2>❤️ My Favorite Movies</h2>
+      <p>Film kartun yang kamu simpan dengan tombol love.</p>
+      <div id="favoriteGrid" class="movie-grid"></div>
+      <div id="favoriteStatus" class="status"></div>
+    </section>
+  </main>
+
+  <footer>
+    Made with 💗 for animation lovers.<br>
+    This product uses the TMDB API but is not endorsed or certified by TMDB.
+  </footer>
+</div>
+
+<!-- MODAL DETAIL FILM -->
+<div id="movieModal" class="modal hidden"
+     onclick="closeModalOutside(event)">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">×</button>
+
+    <div class="detail-layout">
+      <img id="detailPoster" class="detail-poster" alt="Poster film">
+
+      <div class="detail-info">
+        <h2 id="detailTitle">Judul Film</h2>
+        <div id="detailMeta" class="detail-meta"></div>
+        <p id="detailOverview" class="detail-overview"></p>
+      </div>
+    </div>
+
+    <button id="loveBtn" class="love-btn" onclick="toggleLove()">
+      ♡ Tambahkan ke Favorit
+    </button>
+
+    <button id="trailerBtn" class="trailer-btn" onclick="playTrailer()">
+      ▶ Putar Trailer
+    </button>
+
+    <div id="trailerPlayer" class="trailer-player hidden"></div>
+    <p id="trailerMessage" class="trailer-message"></p>
+  </div>
+</div>
+
+<script>
+let apiKey = "";
+let movies = [];
+let currentCategory = "all";
+let currentMovieId = null;
+let currentMovieTitle = "";
+let requestNumber = 0;
+
+const API_BASE = "https://api.themoviedb.org/3";
+const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+
+/* DATA FAVORIT */
+let favoriteMovies = [];
+
+try {
+  const savedFavorites = JSON.parse(
+    localStorage.getItem("myCartoonFavorites") || "[]"
+  );
+
+  if (Array.isArray(savedFavorites)) {
+    favoriteMovies = savedFavorites;
+  }
+} catch (error) {
+  favoriteMovies = [];
+}
+
+/* HUBUNGKAN API KEY */
+async function connectAPI() {
+  const input = document.getElementById("apiKeyInput");
+  const message = document.getElementById("loginMessage");
+  const button = document.getElementById("connectBtn");
+  const key = input.value.trim();
+
+  if (!key) {
+    message.textContent = "Masukkan API Key terlebih dahulu.";
+    message.style.color = "#ff9cbe";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Menghubungkan...";
+  message.textContent = "";
+
+  try {
+    const url = new URL(`${API_BASE}/authentication`);
+    url.searchParams.set("api_key", key);
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok || data.success !== true) {
+      throw new Error("API Key tidak valid.");
+    }
+
+    apiKey = key;
+
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("mainPage").classList.remove("hidden");
+
+    await loadMovies();
+    renderFavorites();
+  } catch (error) {
+    message.textContent =
+      "Gagal menghubungkan. Periksa API Key dan koneksi internet.";
+    message.style.color = "#ff9cbe";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Explore Movies ✨";
+  }
+}
+
+/* MENGAMBIL DAFTAR FILM ANIMASI */
+async function loadMovies() {
+  const status = document.getElementById("loadingStatus");
+  const grid = document.getElementById("movieGrid");
+
+  status.textContent = "Memuat film animasi... ✨";
+  grid.innerHTML = "";
+
+  try {
+    let collectedMovies = [];
+
+    for (let page = 1; page <= 3; page++) {
+      const url = new URL(`${API_BASE}/discover/movie`);
+      url.searchParams.set("api_key", apiKey);
+      url.searchParams.set("with_genres", "16");
+      url.searchParams.set("sort_by", "popularity.desc");
+      url.searchParams.set("language", "id-ID");
+      url.searchParams.set("include_adult", "false");
+      url.searchParams.set("page", page);
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Gagal mengambil film.");
+
+      const data = await response.json();
+      collectedMovies = collectedMovies.concat(data.results || []);
+    }
+
+    movies = collectedMovies.filter(movie => movie.poster_path);
+    renderMovies();
+
+    status.textContent = movies.length
+      ? `Menampilkan ${movies.length} film animasi.`
+      : "Film belum ditemukan.";
+
+    renderFavorites();
+  } catch (error) {
+    status.textContent =
+      "Film gagal dimuat. Periksa internet dan API Key kamu.";
+  }
+}
+
+/* KATEGORI */
+function setCategory(category, button) {
+  currentCategory = category;
+
+  document.querySelectorAll(".category-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  renderMovies();
+}
+
+/* BUAT KARTU FILM */
+function createMovieCard(movie) {
+  const card = document.createElement("article");
+  card.className = "movie-card";
+  card.tabIndex = 0;
+
+  const poster = document.createElement("img");
+  poster.src = movie.poster_path
+    ? IMAGE_BASE + movie.poster_path
+    : "";
+  poster.alt = "Poster " + (movie.title || "film");
+  poster.loading = "lazy";
+
+  const love = document.createElement("button");
+  love.className = "card-love";
+  love.type = "button";
+  love.setAttribute("aria-label", "Tambah atau hapus favorit");
+
+  const isLoved = favoriteMovies.some(item => item.id === movie.id);
+  love.textContent = isLoved ? "♥" : "♡";
+
+  if (isLoved) love.classList.add("loved");
+
+  love.addEventListener("click", event => {
+    event.stopPropagation();
+    toggleFavoriteFromCard(movie);
+  });
+
+  const info = document.createElement("div");
+  info.className = "movie-info";
+
+  const title = document.createElement("h3");
+  title.textContent = movie.title || "Tanpa judul";
+
+  const year = document.createElement("p");
+  year.textContent = movie.release_date
+    ? movie.release_date.slice(0, 4)
+    : "Tahun tidak diketahui";
+
+  const rating = document.createElement("p");
+  rating.className = "rating";
+  rating.textContent = "⭐ " +
+    Number(movie.vote_average || 0).toFixed(1);
+
+  info.append(title, year, rating);
+  card.append(poster, love, info);
+
+  card.addEventListener("click", () => openMovie(movie.id));
+
+  card.addEventListener("keydown", event => {
+    if (event.key === "Enter") openMovie(movie.id);
+  });
+
+  return card;
+}
+
+/* TAMPILKAN FILM */
+function renderMovies() {
+  const grid = document.getElementById("movieGrid");
+  const search = document.getElementById("searchInput").value
+    .trim().toLowerCase();
+
+  grid.innerHTML = "";
+
+  const filteredMovies = movies.filter(movie => {
+    const title = (movie.title || "").toLowerCase();
+    const matchesSearch = title.includes(search);
+
+    const matchesCategory = currentCategory === "all" ||
+      (movie.genre_ids || []).includes(Number(currentCategory));
+
+    return matchesSearch && matchesCategory;
+  });
+
+  if (filteredMovies.length === 0) {
+    grid.innerHTML =
+      '<p style="color:#c8c0d7">Film tidak ditemukan.</p>';
+    return;
+  }
+
+  filteredMovies.forEach(movie => {
+    grid.appendChild(createMovieCard(movie));
+  });
+}
+
+/* SIMPAN FAVORIT */
+function saveFavorites() {
+  try {
+    localStorage.setItem(
+      "myCartoonFavorites",
+      JSON.stringify(favoriteMovies)
+    );
+  } catch (error) {
+    alert("Favorit gagal disimpan di browser.");
+  }
+}
+
+/* LOVE DARI KARTU FILM */
+function toggleFavoriteFromCard(movie) {
+  const index = favoriteMovies.findIndex(item => item.id === movie.id);
+
+  if (index >= 0) {
+    favoriteMovies.splice(index, 1);
+  } else {
+    favoriteMovies.push({
+      id: movie.id,
+      title: movie.title || movie.original_title || "Cartoon",
+      poster_path: movie.poster_path || null
+    });
+  }
+
+  saveFavorites();
+  renderMovies();
+  renderFavorites();
+  updateLoveButton();
+}
+
+/* LOVE DARI MODAL DETAIL */
+function toggleLove() {
+  if (!currentMovieId) return;
+
+  const index = favoriteMovies.findIndex(
+    item => item.id === currentMovieId
+  );
+
+  if (index >= 0) {
+    favoriteMovies.splice(index, 1);
+  } else {
+    const movie = movies.find(item => item.id === currentMovieId);
+
+    favoriteMovies.push({
+      id: currentMovieId,
+      title: currentMovieTitle,
+      poster_path: movie ? movie.poster_path : null
+    });
+  }
+
+  saveFavorites();
+  updateLoveButton();
+  renderMovies();
+  renderFavorites();
+}
+
+/* PERBARUI TOMBOL LOVE */
+function updateLoveButton() {
+  const button = document.getElementById("loveBtn");
+  if (!button || !currentMovieId) return;
+
+  const loved = favoriteMovies.some(
+    item => item.id === currentMovieId
+  );
+
+  button.classList.toggle("loved", loved);
+  button.textContent = loved
+    ? "❤️ Sudah di Favorit"
+    : "♡ Tambahkan ke Favorit";
+}
+
+/* TAMPILKAN DAFTAR FAVORIT */
+function renderFavorites() {
+  const grid = document.getElementById("favoriteGrid");
+  const status = document.getElementById("favoriteStatus");
+
+  if (!grid || !status) return;
+
+  grid.innerHTML = "";
+
+  if (favoriteMovies.length === 0) {
+    status.textContent = "Belum ada film favorit. Tekan ♡ pada film pilihanmu.";
+    return;
+  }
+
+  status.textContent = `${favoriteMovies.length} film tersimpan di favorit.`;
+
+  favoriteMovies.forEach(favorite => {
+    const fullMovie = movies.find(item => item.id === favorite.id);
+
+    const movie = fullMovie || {
+      id: favorite.id,
+      title: favorite.title,
+      poster_path: favorite.poster_path,
+      genre_ids: []
+    };
+
+    grid.appendChild(createMovieCard(movie));
+  });
+}
+
+/* BUKA DETAIL FILM */
+async function openMovie(movieId) {
+  const modal = document.getElementById("movieModal");
+  const player = document.getElementById("trailerPlayer");
+  const message = document.getElementById("trailerMessage");
+  const button = document.getElementById("trailerBtn");
+  const thisRequest = ++requestNumber;
+
+  currentMovieId = movieId;
+  currentMovieTitle = "Cartoon";
+
+  player.innerHTML = "";
+  player.classList.add("hidden");
+  message.textContent = "";
+  button.disabled = false;
+  button.textContent = "▶ Putar Trailer";
+
+  modal.classList.remove("hidden");
+
+  document.getElementById("detailTitle").textContent = "Memuat detail...";
+  document.getElementById("detailMeta").textContent = "";
+  document.getElementById("detailOverview").textContent = "";
+  document.getElementById("detailOverview").textContent = "";
+
+    const poster = document.getElementById("detailPoster");
+    poster.src = "";
+    poster.alt = "Poster film";
+
+    updateLoveButton();
+
+    try {
+      const url = new URL(`${API_BASE}/movie/${movieId}`);
+      url.searchParams.set("api_key", apiKey);
+      url.searchParams.set("language", "id-ID");
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Gagal mengambil detail film.");
+      }
+
+      const movie = await response.json();
+
+      if (thisRequest !== requestNumber) return;
+
+      currentMovieId = movie.id;
+      currentMovieTitle =
+        movie.title || movie.original_title || "Cartoon";
+
+      document.getElementById("detailTitle").textContent =
+        currentMovieTitle;
+
+      const genres = (movie.genres || [])
+        .map(genre => genre.name)
+        .join(", ");
+
+      const runtime = movie.runtime
+        ? movie.runtime + " menit"
+        : "Durasi tidak diketahui";
+
+      const rating = Number(movie.vote_average || 0).toFixed(1);
+
+      document.getElementById("detailMeta").textContent =
+        `${movie.release_date || "Tahun tidak diketahui"} · ` +
+        `${runtime} · ⭐ ${rating}` +
+        (genres ? ` · ${genres}` : "");
+
+      document.getElementById("detailOverview").textContent =
+        movie.overview || "Sinopsis belum tersedia.";
+
+      poster.src = movie.poster_path
+        ? IMAGE_BASE + movie.poster_path
+        : "";
+
+      poster.alt = "Poster " + currentMovieTitle;
+
+      updateLoveButton();
+
+    } catch (error) {
+      if (thisRequest !== requestNumber) return;
+
+      document.getElementById("detailTitle").textContent =
+        "Detail film";
+
+      document.getElementById("detailOverview").textContent =
+        "Detail film gagal dimuat. Coba lagi.";
+    }
+}
+
+/* PUTAR TRAILER YOUTUBE */
+async function playTrailer() {
+  const movieId = currentMovieId;
+  const movieTitle = currentMovieTitle;
+
+  if (!movieId) return;
+
+  const player = document.getElementById("trailerPlayer");
+  const message = document.getElementById("trailerMessage");
+  const button = document.getElementById("trailerBtn");
+
+  player.innerHTML = "";
+  player.classList.remove("hidden");
+  message.textContent = "Mencari trailer film...";
+  button.disabled = true;
+  button.textContent = "Memuat trailer...";
+
+  try {
+    const url = new URL(`${API_BASE}/movie/${movieId}/videos`);
+    url.searchParams.set("api_key", apiKey);
+    url.searchParams.set("language", "en-US");
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Trailer gagal dimuat.");
+    }
+
+    const data = await response.json();
+    const videos = data.results || [];
+
+    let trailer = videos.find(video =>
+      video.site === "YouTube" &&
+      video.type === "Trailer" &&
+      video.official === true
+    );
+
+    if (!trailer) {
+      trailer = videos.find(video =>
+        video.site === "YouTube" &&
+        video.type === "Trailer"
+      );
+    }
+
+    if (!trailer) {
+      trailer = videos.find(video => video.site === "YouTube");
+    }
+
+    if (trailer && trailer.key) {
+      const iframe = document.createElement("iframe");
+
+      iframe.src =
+        "https://www.youtube-nocookie.com/embed/" +
+        encodeURIComponent(trailer.key) +
+        "?autoplay=1&rel=0";
+
+      iframe.title = "Trailer " + movieTitle;
+      iframe.allow =
+        "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+      player.appendChild(iframe);
+      message.textContent = "Trailer: " + trailer.name;
+
+    } else {
+      player.classList.add("hidden");
+      message.textContent = "Trailer belum tersedia. ";
+
+      const link = document.createElement("a");
+      link.href = makeYouTubeSearch(movieTitle);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Cari trailer di YouTube";
+
+      message.appendChild(link);
+    }
+
+  } catch (error) {
+    player.classList.add("hidden");
+    message.textContent = "Trailer gagal dimuat. ";
+
+    const link = document.createElement("a");
+    link.href = makeYouTubeSearch(movieTitle);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Buka pencarian YouTube";
+
+    message.appendChild(link);
+
+  } finally {
+    button.disabled = false;
+    button.textContent = "▶ Putar Trailer";
+  }
+}
+
+/* PENCARIAN TRAILER YOUTUBE */
+function makeYouTubeSearch(title) {
+  return "https://www.youtube.com/results?search_query=" +
+    encodeURIComponent(title + " official trailer");
+}
+
+/* TUTUP DETAIL FILM */
+function closeModal() {
+  requestNumber++;
+
+  document.getElementById("movieModal").classList.add("hidden");
+
+  const player = document.getElementById("trailerPlayer");
+  player.innerHTML = "";
+  player.classList.add("hidden");
+
+  document.getElementById("trailerMessage").textContent = "";
+}
+
+/* TUTUP MODAL JIKA AREA LUAR DIKLIK */
+function closeModalOutside(event) {
+  if (event.target.id === "movieModal") {
+    closeModal();
+  }
+}
+
+/* TUTUP DENGAN TOMBOL ESC */
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeModal();
+  }
+});
+</script>
+
+</body>
+</html>
